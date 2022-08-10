@@ -6,7 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-
+/**
+ * clase para recibir las cadenas de dna
+ * @author Stiven Castro Arias
+ * @since 08/08/2022
+ * */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

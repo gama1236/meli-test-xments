@@ -8,6 +8,11 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+/*
+ *   clase que se encarga de almacenar datos en la base de datos
+ *  Stiven Castro Arias
+ * @since 08/08/2022
+ **/
 @Getter
 @Setter
 @AllArgsConstructor

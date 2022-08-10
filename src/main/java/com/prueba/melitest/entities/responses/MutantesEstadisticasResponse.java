@@ -5,6 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * clase para devolver las estadísticas
+ * @author Stiven Castro Arias
+ * @since 08/08/2022
+ * */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

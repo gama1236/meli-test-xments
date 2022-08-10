@@ -7,7 +7,6 @@ import java.util.Objects;
 @Component
 public class EsMuntante {
 
-
     /* Completa matriz con DNA */
     static boolean completeMatriz (char[][] arr, String[] dna ){
 
@@ -38,7 +37,8 @@ public class EsMuntante {
         return true;
     }
 
-    /* Valida que las letras sean las correctas*/
+    /* Válida que las letras sean las correctas
+    *  a las pedidas en el problema */
     static boolean validaLetras(char [] dnaSimple){
 
         for (char c : dnaSimple) {
@@ -220,8 +220,6 @@ public class EsMuntante {
         if (!completeMatriz(arr,dna)){
             return false;
         }
-
-        /* Imprime matriz  */
 
         /* ***************************************************
          * EVALUA RESULTADOS PARA DETERMINAR SI ES MUTANTE O NO

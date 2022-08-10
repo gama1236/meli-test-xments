@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Controller que expone metodos
+ * @author Stiven Castro Arias
+ * @since 08/08/2022
+ * */
 @RestController
 @RequestMapping()
 //@Api(tags = "Mutant Controller")
@@ -32,9 +37,14 @@ public class EsmutanteController {
         this.estadisticasMutantesService = estadisticasMutantesService;
     }
 
+    /**
+     * metodo que verifica la secuencia de Dna.
+     * @author Stiven Castro Arias
+     * @since 08/08/2022
+     * */
     //@ApiOperation(value = "Método para verificar si es mutante o no")
     @PostMapping("/mutant")
-    public ResponseEntity<String> vefirifacarMutante(@RequestBody DnaRequest dna) throws Exception {
+    public ResponseEntity<String> vefirifacarMutante(@RequestBody DnaRequest dna){
 
         if (Boolean.TRUE.equals(mutanteAdaptadorService.vefirifacarMutante(dna.getDna()))){
            return new ResponseEntity<>("200-OK", HttpStatus.OK);
@@ -43,6 +53,11 @@ public class EsmutanteController {
         return new ResponseEntity<>("403-Forbidden", HttpStatus.FORBIDDEN);
     }
 
+    /**
+     * metodo que expone las estadisticas
+     * @author Stiven Castro Arias
+     * @since 08/08/2022
+     * */
     //@ApiOperation(value = "Método para ver estadisticas")
     @GetMapping("/stats")
     public ResponseEntity<MutantesEstadisticasResponse> obtenerEstadisticas(){
