@@ -1,5 +1,6 @@
 package com.prueba.melitest.components;
 
+import com.prueba.melitest.exceptions.FoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -7,10 +8,15 @@ import java.util.Objects;
 @Component
 public class EsMuntante {
 
+    EsMuntante(){
+        //
+    }
+
     /* Completa matriz con DNA */
-    static boolean completeMatriz (char[][] arr, String[] dna ){
+    static char[][] completeMatriz (String[] dna ){
 
         int lenghMatriz = dna.length;
+        char[][] arr = new char[dna.length][dna.length];
         for (int i = 0; i < lenghMatriz; i++) {
             char [] dnaSimple = dna[i].toCharArray();
 
@@ -20,13 +26,13 @@ public class EsMuntante {
              * por ende la matriz no debe ser menor a 4x4
              * */
             if (dnaSimple.length!=lenghMatriz || lenghMatriz<4){
-                return false;
+                throw new FoundException("la matrix debe ser cuadrada");
             }
             /*
              * se valida si las letras corresponden a A, T, C, G
              */
             if (!validaLetras(dnaSimple)){
-                return false;
+                throw new FoundException("la matrix debe ser cuadrada");
             }
              /*
               se devuelve en un una matriz de caracteres por argumento
@@ -34,7 +40,7 @@ public class EsMuntante {
               */
             arr[i] = dnaSimple;
         }
-        return true;
+        return arr;
     }
 
     /* Válida que las letras sean las correctas
@@ -54,48 +60,37 @@ public class EsMuntante {
         int countSecuenceHoriz=0;
         for (int i = 0; i < lenghMatriz; i++) {
             for (int j = 0; j < lenghMatriz; j++) {
-                /*
-                 * se compara con el tamaño de la mantriz donde
-                 * sea menor o igual a 4
-                 * */
                 if (lenghMatriz-j>=4 &&
-                        arr[i][j] == arr[i][j+ 1] &&
-                        arr[i][j] == arr[i][j + 2] &&
-                        arr[i][j] == arr[i][j + 3]) {
-                    countSecuenceHoriz++;
-                    /*
-                     * se suma a J 3 debido a que se hacen 3
-                     * comparaciones consecutivamente
-                     * */
-                    j += 3;
-                    /* Acelera la busqueda de la solución*/
-                    if (countSecuenceHoriz>1){
-                        return (countSecuenceHoriz);
+                     arr[i][j] == arr[i][j+ 1] &&
+                     arr[i][j] == arr[i][j + 2] &&
+                     arr[i][j] == arr[i][j + 3]
+                    ) {
+                        countSecuenceHoriz++;
+                        j += + 3;
+                        /* Acelera la busqueda de la solución*/
+                        if (countSecuenceHoriz>1){
+                            return (countSecuenceHoriz);
+                        }
                     }
 
-                }
             }
         }
         return countSecuenceHoriz;
-    }
+        }
+
 
     /* Cuenta secuencia de forma Vertical*/
-    static int contarSecuenciaVert(char[][] arr, int lenghMatriz){
-        int countSecuenceVert=0;
-        for (int i = 0; i < lenghMatriz; i++) {
-            for (int j = 0; j < lenghMatriz; j++) {
-                if (lenghMatriz-i>=4 &&
-                        arr[i][j] == arr[i+1][j] &&
-                        arr[i][j] == arr[i+2][j] &&
-                        arr[i][j] == arr[i+3][j]
-                ) {
+    static int contarSecuenciaVert(char[][] arr) {
+        int countSecuenceVert = 0;
+        for (int j = 0; j < arr[0].length; j++) {
+            for (int i = 0; i < arr.length - 3; i++) {
+                if (arr[i][j] == arr[i + 1][j] && arr[i][j] == arr[i + 2][j] && arr[i][j] == arr[i + 3][j]) {
                     countSecuenceVert++;
-                    j += 3;
-                    /* Acelera la busqueda de la solución*/
-                    if (countSecuenceVert>1){
+                    i += 3;
+                    /* Acelera la busqueda de la solución */
+                    if (countSecuenceVert > 1) {
                         return (countSecuenceVert);
                     }
-
                 }
             }
         }
@@ -113,11 +108,13 @@ public class EsMuntante {
                 limit=lenghMatriz-i;
             }
             if (limit>=4 &&
-                    arr[i][j] == arr[i+1][j+1] &&
-                    arr[i][j] == arr[i+2][j+2] &&
-                    arr[i][j] == arr[i+3][j+3]) {
-                contSecuencia++;
-            }
+                arr[i][j] == arr[i+1][j+1] &&
+                arr[i][j] == arr[i+2][j+2] &&
+                arr[i][j] == arr[i+3][j+3]
+                ) {
+                    contSecuencia++;
+                }
+
             i++;
             j++;
         }
@@ -159,20 +156,20 @@ public class EsMuntante {
     /* Busca secuencia diagonal de DER a IZq*/
     static int busquedaDiagDerIzq(char[][] arr, int lenghMatriz, int i, int j, String indLimit){
         int contSecuencia =0;
-        int limit;
+        int limit=0;
         while (i<=lenghMatriz-1 && j>=0){
             if (Objects.equals(indLimit, "J")){
                 limit=j;
             }else{
                 limit=lenghMatriz-i-1;
             }
-            if (limit>=3 &&
-                    arr[i][j] == arr[i+1][j-1] &&
-                    arr[i][j] == arr[i+2][j-2] &&
-                    arr[i][j] == arr[i+3][j-3]) {
-                contSecuencia++;
+            if (limit>=3 && arr[i][j] == arr[i+1][j-1] &&
+                        arr[i][j] == arr[i+2][j-2] &&
+                        arr[i][j] == arr[i+3][j-3]
+                ) {
+                    contSecuencia++;
+                }
 
-            }
             i++;
             j--;
         }
@@ -214,12 +211,10 @@ public class EsMuntante {
     }
 
     /* Evalua si es mutante o no */
-    public boolean isMutant(String[] dna){
+    public static boolean isMutant(String[] dna){
         int tamanioMatriz = dna.length;
-        char[][] arr = new char[tamanioMatriz][tamanioMatriz];
-        if (!completeMatriz(arr,dna)){
-            return false;
-        }
+        char[][] arr = completeMatriz(dna);
+
 
         /* ***************************************************
          * EVALUA RESULTADOS PARA DETERMINAR SI ES MUTANTE O NO
@@ -232,7 +227,7 @@ public class EsMuntante {
         }
 
         /* Evalúa secuencia vertical + horizontal  */
-        int totSecuenceVert = contarSecuenciaVert(arr, tamanioMatriz);
+        int totSecuenceVert = contarSecuenciaVert(arr);
         if ((totalSecuenceHoriz+totSecuenceVert)>1){
             return true;
         }
