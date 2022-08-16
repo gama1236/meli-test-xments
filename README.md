@@ -1,6 +1,8 @@
 # meli-test-xments
 Prueba técnica mercado libre
 
+# El proyecto se construyo en  Spring boot.
+
 ### Para ejecutar la prueba
 1. se requiere tener MySql
 2. ir a la Base de datos 
@@ -18,3 +20,4 @@ Prueba técnica mercado libre
 #### El proyecto no cuenta son swagger debido a que causa una falla a la hora de desplegar en heroku
 
 #### El proyecto integra sonarCloud como analizador de codigo estatico [https://sonarcloud.io/project/overview?id=gama1236_meli-test-xments](https://sonarcloud.io/project/overview?id=gama1236_meli-test-xments)
+
