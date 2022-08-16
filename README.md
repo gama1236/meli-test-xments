@@ -17,4 +17,4 @@ Prueba técnica mercado libre
 
 #### El proyecto no cuenta son swagger debido a que causa una falla a la hora de desplegar en heroku
 
-#### El proyecto integra sonarCloud como analizador de codigo estatico [https://sonarcloud.io/organizations/gama1236/projects](https://sonarcloud.io/organizations/gama1236/projects)
+#### El proyecto integra sonarCloud como analizador de codigo estatico [https://sonarcloud.io/project/overview?id=gama1236_meli-test-xments](https://sonarcloud.io/project/overview?id=gama1236_meli-test-xments)
